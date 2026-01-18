@@ -1,13 +1,58 @@
-# محتوای جدید vercel.json
-@'
 {
   "functions": {
-    "api/*.php": {
-      "runtime": "php@0.0.1"
+    "api/verify.php": {
+      "runtime": "php@0.0.1",
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "api/status.php": {
+      "runtime": "php@0.0.1",
+      "memory": 512,
+      "maxDuration": 5
     }
   },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/public/$1" }
+  "routes": [
+    { 
+      "src": "/verify", 
+      "dest": "/api/verify.php",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    { 
+      "src": "/license/verify", 
+      "dest": "/api/verify.php",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    { 
+      "src": "/", 
+      "dest": "/public/index.php",
+      "headers": {
+        "Cache-Control": "public, max-age=3600, s-maxage=3600"
+      }
+    },
+    { 
+      "src": "/status", 
+      "dest": "/api/status.php",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    },
+    { 
+      "src": "/api/(.*)", 
+      "dest": "/api/$1",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_NAME": "Notification Hub License Server"
+  },
+  "builds": [
+    { "src": "api/*.php", "use": "@vercel/php" }
   ]
 }
-'@ | Out-File -FilePath vercel.json -Encoding UTF8
