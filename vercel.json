@@ -1,31 +1,10 @@
 {
   "functions": {
-    "api/verify.php": {
-      "runtime": "vercel-php@0.6.0",
-      "memory": 1024,
-      "maxDuration": 10
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.0"
     }
   },
   "routes": [
-    { "src": "/verify", "dest": "/api/verify.php" },
-    { "src": "/license/verify", "dest": "/api/verify.php" },
-    { 
-      "src": "/", 
-      "dest": "/public/index.html",
-      "headers": {
-        "Cache-Control": "public, max-age=3600"
-      }
-    },
-    { 
-      "src": "/status", 
-      "dest": "/api/status.php",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
-    }
-  ],
-  "env": {
-    "APP_ENV": "production",
-    "APP_NAME": "Notification Hub License Server"
-  }
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
 }
