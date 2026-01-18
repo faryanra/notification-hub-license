@@ -1,13 +1,13 @@
 {
   "functions": {
-    "api/verify.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.8.0"
     }
   },
-  "routes": [
-    { "src": "/verify", "dest": "/api/verify.php" },
-    { "src": "/license/verify", "dest": "/api/verify.php" },
-    { "src": "/", "dest": "/public/index.php" },
-    { "src": "/status", "dest": "/api/status.php" }
+  "rewrites": [
+    { "source": "/verify", "destination": "/api/verify.php" },
+    { "source": "/license/verify", "destination": "/api/verify.php" },
+    { "source": "/", "destination": "/public/index.php" },
+    { "source": "/status", "destination": "/api/status.php" }
   ]
 }
