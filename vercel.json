@@ -1,11 +1,13 @@
+# محتوای جدید vercel.json
+@'
 {
   "functions": {
     "api/*.php": {
-      "runtime": "vercel-php@0.7.0"
+      "runtime": "php@0.0.1"
     }
   },
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
+'@ | Out-File -FilePath vercel.json -Encoding UTF8
